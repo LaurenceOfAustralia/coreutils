@@ -10,7 +10,7 @@ import (
 
 func main() {
         if len(os.Args) < 2 {
-                fmt.Fprintf(os.Stderr, "Not enough arguments given. Needed to recieved two arguments. \n")
+                fmt.Fprintf(os.Stderr, "Not enough arguments given. Needed to recieved at least two arguments. \n")
                 os.Exit(1)
         }
 

@@ -1,0 +1,27 @@
+#!/bin/sh
+
+rm -r build
+mkdir build
+
+DEST=$PWD/build
+
+for dir in $PWD/*
+do
+  test -d "$dir" || continue
+
+  cd $dir
+  echo "Building contents of $dir"
+  go build
+  cd ..
+
+  for bin in $dir/*
+  do
+          cp $bin $DEST
+  done
+
+done
+
+for bin in build/*.go
+do
+        rm $bin
+done

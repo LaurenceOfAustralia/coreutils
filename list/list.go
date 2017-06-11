@@ -10,6 +10,12 @@ import (
 // TODO add formatting to output.
 
 func main() {
+
+        if len(os.Args) < 2 {
+                fmt.Fprintf(os.Stderr, "Not enough arguments given. Needed to recieved at least two arguments. \n")
+                os.Exit(1)
+        }
+        
         path := os.Args[1]
         entries, err := ioutil.ReadDir(path)
 
@@ -18,7 +24,12 @@ func main() {
                 os.Exit(1)
         }
 
-        for _, f := range entries {
-                fmt.Println(f.Name())
+        for i, f := range entries {
+                // Terrible hacky formatting. Fix sometime.
+                fmt.Fprintf(os.Stdout, "%s    ", f.Name())
+
+                if i == len(entries)-1 {
+                        fmt.Println("")
+                }
         }
 }

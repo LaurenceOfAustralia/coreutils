@@ -6,10 +6,11 @@ import (
         "io/ioutil"
 )
 
+// A better named simpler version of cat without 50 strange unnecessary flags.
+
 func main() {
         for i, file := range os.Args {
                 if i != 0 {
-                        fmt.Println(file)
                         data, err := ioutil.ReadFile(file)
 
                         if err != nil {
