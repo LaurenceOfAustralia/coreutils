@@ -25,7 +25,7 @@ func main() {
         }
 
         for i, f := range entries {
-                // Terrible hacky formatting. Fix sometime.
+                // Terrible hacky formatting. Fix!
                 fmt.Fprintf(os.Stdout, "%s    ", f.Name())
 
                 if i == len(entries)-1 {
