@@ -1,0 +1,15 @@
+#!/usr/local/bin/ruby
+
+# This and its friend build_coreutils are horribly coded. Fix. Now. Before it breaks.
+
+Dir.foreach(Dir.pwd) do |item|
+  next if item == '.' or item == '..' or item == '.git'
+  if Dir.exist?(item) == true
+    path = "#{Dir.pwd}/#{item}"
+    Dir.foreach(path) do |file|
+      if file !~ /.go/ and file != '.' and file != '..' and file != '' and path != "#{Dir.pwd}/build"
+        File.delete("#{path}/#{file}")
+      end
+    end
+  end
+end

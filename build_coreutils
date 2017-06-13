@@ -1,9 +1,12 @@
 #!/bin/sh
 
-rm -r build
+rm -rf build
 mkdir build
 
 DEST=$PWD/build
+
+# This and its friend the ruby script delete_bin
+# are horribly coded. Fix. Now. Before it breaks.
 
 for dir in $PWD/*
 do
@@ -25,3 +28,5 @@ for bin in build/*.go
 do
         rm $bin
 done
+
+./delete_bin
