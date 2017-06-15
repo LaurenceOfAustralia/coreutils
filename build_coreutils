@@ -4,23 +4,26 @@ rm -rf build
 mkdir build
 
 DEST=$PWD/build
+echo "Compiling coreutils..."
 
 # This and its friend the ruby script delete_bin
 # are horribly coded. Fix. Now. Before it breaks.
 
 for dir in $PWD/*
 do
-  test -d "$dir" || continue
+  test -d "$dir" ||  continue
 
-  cd $dir
-  echo "Building contents of $dir"
-  go build
-  cd ..
+  if [ $dir != $DEST ]
+  then
+          cd $dir
+          go build
+          cd ..
 
-  for bin in $dir/*
-  do
-          cp $bin $DEST
-  done
+          for bin in $dir/*
+          do
+                  cp $bin $DEST
+          done
+  fi
 
 done
 
@@ -29,4 +32,5 @@ do
         rm $bin
 done
 
+echo "Cleaning up..."
 ./delete_bin

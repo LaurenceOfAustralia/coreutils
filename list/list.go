@@ -6,17 +6,15 @@ import (
         "os"
 )
 
-// Extrordinarily simple, no arguments similar to ls.
-// TODO add formatting to output.
+// Simple copy of ls which by default shows hidden folders.
 
 func main() {
+        path := os.Getenv("PWD")
 
-        if len(os.Args) < 2 {
-                fmt.Fprintf(os.Stderr, "Not enough arguments given. Needed to recieve at least two arguments. \n")
-                os.Exit(1)
+        if len(os.Args) > 1 {
+                path = os.Args[1]
         }
 
-        path := os.Args[1]
         entries, err := ioutil.ReadDir(path)
 
         if err != nil {
@@ -24,12 +22,25 @@ func main() {
                 os.Exit(1)
         }
 
+        output := make([]string, 1)
+        current_slice_num := 0
+
         for i, f := range entries {
-                // Terrible hacky formatting. Fix!
-                fmt.Fprintf(os.Stdout, "%s    ", f.Name())
+                item := f.Name()
+
+                // The formatting of the output works by the usage of tab charichters. aka \t
+                if len(item) + len(output[current_slice_num]) + 1 < 70 {
+                        output[current_slice_num] = output[current_slice_num] + item + "\t"
+                } else {
+                        output[current_slice_num] = output[current_slice_num] + "\t"
+                        output = append(output, item + "\t")
+                        current_slice_num = current_slice_num + 1
+                }
 
                 if i == len(entries)-1 {
-                        fmt.Println("")
+                        for i := range output {
+                                fmt.Println(output[i])
+                        }
                 }
         }
 }
