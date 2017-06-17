@@ -16,7 +16,7 @@ func main() {
         for i, file := range os.Args {
                 if i != 0 {
                         /* This is the most efficiant method i have found so far.
-                        However it loads the entire file into memory, at some point fix this. */
+                        However it loads the entire file into memory. This is bad for big files*/
                         data, err := os.Open(file)
 
                         if err != nil {
